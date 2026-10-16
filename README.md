@@ -5,11 +5,12 @@
 ## Запуск
 
 ```bash
-cd app
 docker compose up -d --build
 ```
 
-Открыть http://IP:8080 (локально: http://127.0.0.1:8080)
+Или из `app/`: `docker compose up -d --build`.
+
+Открыть http://IP:80 или http://127.0.0.1:8080
 
 - логин: `maxAkerman`
 - пароль: `maxAkerman`
