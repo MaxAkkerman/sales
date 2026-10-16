@@ -42,7 +42,21 @@ CREATE INDEX IF NOT EXISTS clients_status_idx ON clients(status);
 CREATE INDEX IF NOT EXISTS clients_segment_idx ON clients(segment);
 `;
 
+async function waitForDb(attempts = 30) {
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      await pool.query("SELECT 1");
+      return;
+    } catch (err) {
+      console.log(`Postgres ещё не готов (${i}/${attempts}): ${err.message}`);
+      await new Promise((r) => setTimeout(r, 2000));
+    }
+  }
+  throw new Error("Postgres не ответил за отведённое время");
+}
+
 export async function initDb() {
+  await waitForDb();
   await pool.query(SCHEMA);
   const { rows } = await pool.query("SELECT COUNT(*)::int AS n FROM clients");
   if (rows[0].n > 0) return { seeded: false, count: rows[0].n };

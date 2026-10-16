@@ -1,7 +1,5 @@
-# Корень репозитория — Timeweb Apps: docker-compose build / docker-compose up -d
-# Локально: docker compose up -d --build  или  cd app && docker compose up -d --build
-
-version: "3.8"
+# Timeweb: docker-compose build && docker-compose up -d
+# Контекст сборки — корень репозитория (рядом с этим файлом), без ./app
 
 services:
   db:
@@ -21,7 +19,9 @@ services:
 
   app:
     image: mgroup-sales:latest
-    build: ./app
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "80:8080"
       - "8080:8080"
@@ -32,7 +32,8 @@ services:
       JWT_SECRET: change-me-on-server
       PORT: "8080"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     restart: unless-stopped
 
 volumes:
