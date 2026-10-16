@@ -1,5 +1,7 @@
-# Корень репозитория — так Timeweb Apps находит compose.
-# Локально по-прежнему можно: cd app && docker compose up -d --build
+# Корень репозитория — Timeweb Apps: docker-compose build / docker-compose up -d
+# Локально: docker compose up -d --build  или  cd app && docker compose up -d --build
+
+version: "3.8"
 
 services:
   db:
@@ -18,6 +20,7 @@ services:
     restart: unless-stopped
 
   app:
+    image: mgroup-sales:latest
     build: ./app
     ports:
       - "80:8080"
@@ -27,10 +30,9 @@ services:
       AUTH_USER: maxAkerman
       AUTH_PASSWORD: maxAkerman
       JWT_SECRET: change-me-on-server
-      PORT: 8080
+      PORT: "8080"
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     restart: unless-stopped
 
 volumes:

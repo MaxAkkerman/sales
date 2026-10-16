@@ -4,6 +4,8 @@
 
 ## Запуск на сервере
 
+Команды Timeweb Apps: сборка `docker-compose build`, запуск `docker-compose up -d`.
+
 Из корня репозитория (так же деплоится Timeweb):
 
 ```bash
