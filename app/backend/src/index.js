@@ -8,7 +8,7 @@ import { pool, initDb } from "./db.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
-const PORT = Number(process.env.PORT || 8080);
+const PORT = Number(process.env.PORT || 8000);
 const JWT_SECRET = process.env.JWT_SECRET || "mgroup-dev-secret";
 const AUTH_USER = process.env.AUTH_USER || "maxAkerman";
 const AUTH_PASSWORD = process.env.AUTH_PASSWORD || "maxAkerman";

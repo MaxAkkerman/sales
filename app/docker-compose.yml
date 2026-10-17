@@ -17,13 +17,13 @@ services:
   app:
     build: .
     ports:
-      - "8080:8080"
+      - "8080:8000"
     environment:
       DATABASE_URL: postgres://sales:sales@db:5432/sales
       AUTH_USER: maxAkerman
       AUTH_PASSWORD: maxAkerman
       JWT_SECRET: change-me-on-server
-      PORT: 8080
+      PORT: "8000"
     depends_on:
       db:
         condition: service_healthy

@@ -11,6 +11,6 @@ COPY app/backend/package.json ./
 RUN npm install --omit=dev
 COPY app/backend ./
 COPY --from=web /web/dist ./public
-ENV NODE_ENV=production PORT=8080
-EXPOSE 8080
+ENV NODE_ENV=production PORT=8000
+EXPOSE 8000
 CMD ["node", "src/index.js"]
