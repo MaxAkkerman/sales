@@ -1,5 +1,6 @@
 # Timeweb: docker-compose build && docker-compose up -d
-# Контекст сборки — корень репозитория (рядом с этим файлом), без ./app
+# Один внешний порт 80 — без конфликта с 8080 на хосте платформы.
+# Имя образа не задаём: иначе up пытается pull mgroup-sales:latest с Docker Hub.
 
 services:
   db:
@@ -18,13 +19,11 @@ services:
     restart: unless-stopped
 
   app:
-    image: mgroup-sales:latest
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "80:8080"
-      - "8080:8080"
     environment:
       DATABASE_URL: postgres://sales:sales@db:5432/sales
       AUTH_USER: maxAkerman
@@ -32,8 +31,7 @@ services:
       JWT_SECRET: change-me-on-server
       PORT: "8080"
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     restart: unless-stopped
 
 volumes:
